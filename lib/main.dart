@@ -1,72 +1,70 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Stateful',
       home: Scaffold(
-        backgroundColor: Colors.green,
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              CircleAvatar(
-                radius: 50.0,
-                backgroundImage: AssetImage('images/sophian.jpg'),
-              ),
-              Text(
-                'Sophian-kun',
-                style: TextStyle(
-                  fontSize: 40.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Card(
-                color: Colors.white,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.phone,
-                    color: Colors.teal,
-                  ),
-                  title: Text(
-                    '+55 9188 3003',
-                    style: TextStyle(
-                      color: Colors.teal.shade900,
-                      fontFamily: 'Source Sans Pro',
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ),
-              ),
-              Card(
-                color: Colors.white,
-                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.teal,
-                  ),
-                  title: Text(
-                    'sophian@gmail.com',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.teal.shade900,
-                      fontFamily: 'Source Sans Pro',
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Text('Switch'),
+        ),
+        backgroundColor: Colors.black,
+        body: Center(
+          child: ClickGood(),
         ),
       ),
     );
+  }
+}
+
+class ClickGood extends StatefulWidget {
+  @override
+  _ClickGoodState createState() => _ClickGoodState();
+}
+
+class _ClickGoodState extends State<ClickGood> {
+  bool _active = false;
+
+  void _handleTap() {
+    setState(() {
+      _active = !_active;
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: _handleTap,
+        child: Container(
+          child: Column(children: <Widget>[
+            Container(
+              child: Center(
+                child: new Icon(
+                  Icons.power_settings_new,
+                  color: _active ? Colors.orange[700] : Colors.grey[500],
+                  size: 100.0,
+                ),
+              ),
+              width: 200.0,
+              height: 200.0,
+            ),
+            Container(
+              child: Center(
+                child: Text(
+                  _active ? 'On' : 'Off',
+                  style: TextStyle(fontSize: 32.0, color: Colors.white),
+                ),
+              ),
+              width: 200.0,
+              height: 50.0,
+              decoration: BoxDecoration(
+                color: _active ? Colors.orange[700] : Colors.grey[600],
+              ),
+            ),
+          ]),
+        ));
   }
 }
