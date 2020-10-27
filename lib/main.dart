@@ -1,70 +1,142 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Quizzler());
 
-class MyApp extends StatelessWidget {
+class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Stateful',
       home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Text('Switch'),
-        ),
-        backgroundColor: Colors.black,
-        body: Center(
-          child: ClickGood(),
+        backgroundColor: Colors.grey.shade900,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: QuizPage(),
+          ),
         ),
       ),
     );
   }
 }
 
-class ClickGood extends StatefulWidget {
+class QuizPage extends StatefulWidget {
   @override
-  _ClickGoodState createState() => _ClickGoodState();
+  _QuizPageState createState() => _QuizPageState();
 }
 
-class _ClickGoodState extends State<ClickGood> {
-  bool _active = false;
+class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
 
-  void _handleTap() {
-    setState(() {
-      _active = !_active;
-    });
-  }
+  List<Question> questionBank = [
+    Question(q: 'aaaaa', a: false),
+    Question(q: 'あああああ', a: true),
+    Question(q: 'uuuuu', a: false),
+  ];
+  int questionNumber = 0;
 
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: _handleTap,
-        child: Container(
-          child: Column(children: <Widget>[
-            Container(
-              child: Center(
-                child: new Icon(
-                  Icons.power_settings_new,
-                  color: _active ? Colors.orange[700] : Colors.grey[500],
-                  size: 100.0,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(
+          flex: 5,
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Center(
+              child: Text(
+                questionBank[questionNumber].questionText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white,
                 ),
               ),
-              width: 200.0,
-              height: 200.0,
             ),
-            Container(
-              child: Center(
-                child: Text(
-                  _active ? 'On' : 'Off',
-                  style: TextStyle(fontSize: 32.0, color: Colors.white),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              textColor: Colors.white,
+              color: Colors.green,
+              child: Text(
+                'True',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
                 ),
               ),
-              width: 200.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                color: _active ? Colors.orange[700] : Colors.grey[600],
-              ),
+              onPressed: () {
+                //The user picked true.
+
+                bool correctAnswer =
+                    questionBank[questionNumber].questionAnswer;
+
+                if (correctAnswer == true) {
+                  print('ok!!');
+                } else {
+                  print('wrong!');
+                }
+
+                if (questionNumber < 2) {
+                  setState(() {
+                    questionNumber++;
+                  });
+                } else {
+                  setState(() {
+                    questionNumber = 0;
+                  });
+                }
+              },
             ),
-          ]),
-        ));
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: FlatButton(
+              color: Colors.red,
+              child: Text(
+                'False',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {
+                //The user picked false.
+
+                bool correctAnswer =
+                    questionBank[questionNumber].questionAnswer;
+
+                if (correctAnswer == false) {
+                  print('ok!!');
+                } else {
+                  print('wrong!');
+                }
+
+                if (questionNumber < 2) {
+                  setState(() {
+                    questionNumber++;
+                  });
+                } else {
+                  setState(() {
+                    questionNumber = 0;
+                  });
+                }
+              },
+            ),
+          ),
+        ),
+        Row(
+          children: scoreKeeper,
+        ),
+        //TODO: Add a Row here as your score keeper
+      ],
+    );
   }
 }
