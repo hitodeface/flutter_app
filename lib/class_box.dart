@@ -1,49 +1,5 @@
 import 'package:flutter/material.dart';
 
-const kNumberTextStyle = TextStyle(
-  fontSize: 50.0,
-  fontWeight: FontWeight.w900,
-);
-
-const kLabelTextStyle = TextStyle(
-  fontSize: 18.0,
-  color: Color(0xff8d8e98),
-);
-
-const kResultStyle = TextStyle(
-  color: Color(0xff24d876),
-  fontSize: 22.0,
-  fontWeight: FontWeight.bold,
-);
-
-const kBMIStyle = TextStyle(
-  color: Color(0xff24d876),
-  fontSize: 100.0,
-  fontWeight: FontWeight.bold,
-);
-
-const kBodyStyle = TextStyle(
-  fontSize: 22.0,
-);
-
-class ReusableCard extends StatelessWidget {
-  ReusableCard({this.colour, this.cardChild});
-  final Color colour;
-  final Widget cardChild;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: cardChild,
-      margin: EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: colour,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-    );
-  }
-}
-
 class IconContent extends StatelessWidget {
   IconContent({this.icon, this.label});
   final IconData icon;
@@ -79,7 +35,10 @@ class RoundIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      child: Icon(icon),
+      child: Icon(
+        icon,
+        color: Colors.white,
+      ),
       onPressed: onPressed,
       elevation: 6.0,
       disabledElevation: 6.0,
@@ -88,7 +47,7 @@ class RoundIconButton extends StatelessWidget {
         height: 56.0,
       ),
       shape: CircleBorder(),
-      fillColor: Color(0xff4c4f5e),
+      fillColor: Colors.blue,
     );
   }
 }
@@ -108,10 +67,11 @@ class BottomButton extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 30.0,
+              color: Colors.white,
             ),
           ),
         ),
-        color: Colors.purple,
+        color: Colors.blue,
         margin: EdgeInsets.only(top: 10.0),
         width: double.infinity,
         height: 60.0,
