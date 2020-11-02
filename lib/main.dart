@@ -7,9 +7,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        primaryColor: Color(0xff0A0E21),
-        scaffoldBackgroundColor: Color(0xff0a0e21),
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+        scaffoldBackgroundColor: Color(0xffdfdfdf),
       ),
       home: InputPage(),
     );
