@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'input_page.dart';
+import 'package:provider/provider.dart';
+import 'todo_bloc.dart';
+import 'todo_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +13,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         scaffoldBackgroundColor: Color(0xffdfdfdf),
       ),
-      home: InputPage(),
+      home: Provider<TodoBloc>(
+          create: (context) => new TodoBloc(),
+          dispose: (context, bloc) => bloc.dispose(),
+          child: TodoListView()),
     );
   }
 }
